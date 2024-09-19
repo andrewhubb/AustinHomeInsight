@@ -1,0 +1,35 @@
+relationship 7a811c7e-b540-4f65-b281-3655be9ceec8
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: location.zpid
+	toColumn: housing_fact.zpid
+
+relationship 7ec24eed-7ea7-416b-8b01-cf53b9adc1cb
+	fromColumn: housing_fact.features_key
+	toColumn: features.features_key
+
+relationship db22e998-53cd-4987-9505-cd2bab03dcf7
+	fromColumn: housing_fact.school_key
+	toColumn: schools.school_key
+
+relationship 51a6c33e-61ad-4707-b82f-a46214167f1c
+	crossFilteringBehavior: bothDirections
+	fromColumn: housing_fact.house_key
+	toColumn: house.house_key
+
+relationship b504c424-0964-41c0-b87a-53878a19d658
+	fromColumn: description.zpid
+	toColumn: housing_fact.zpid
+
+relationship 43739f30-ad0b-4e79-a4df-243d91126ac9
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: features_pivot.features_key
+	toColumn: housing_fact.features_key
+
+relationship 05621003-829b-4384-b730-5519a49ee872
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: 'Word Summary_pqe'.Value
+	toColumn: description.Value
+

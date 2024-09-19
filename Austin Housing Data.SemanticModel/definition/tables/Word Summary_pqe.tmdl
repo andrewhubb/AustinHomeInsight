@@ -1,0 +1,26 @@
+table 'Word Summary_pqe'
+	lineageTag: 33310f61-fd36-48b7-9d8e-03e9eea60f97
+
+	column Value
+		dataType: string
+		lineageTag: b8d02491-79a1-401e-8c90-d2e6b035a328
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Word Summary_pqe' = m
+		mode: import
+		source =
+				let
+				    Source = description,
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"zpid"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Removed Columns"),
+				    #"Removed Blank Rows" = Table.SelectRows(#"Removed Duplicates", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Trimmed Text" = Table.TransformColumns(#"Removed Blank Rows",{{"Value", Text.Trim, type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Trimmed Text", each ([Value] <> "2 Wood Blinds  Prime Location Near New Tesla Campus  Cota  Easy To Show Movein Condition Vacantlockbox  Titlework  Survey Done September Closing Preferred" and [Value] <> "Austin" and [Value] <> "Austin'S" and [Value] <> "Awesome" and [Value] <> "Bbqâ€™S" and [Value] <> "Contains" and [Value] <> "Elsewhere" and [Value] <> "Great" and [Value] <> "Home" and [Value] <> "Homes" and [Value] <> "House" and [Value] <> "Zestimate"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+

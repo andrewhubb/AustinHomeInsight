@@ -1,0 +1,68 @@
+table Parameter
+	lineageTag: ad771505-61c5-43b1-8c00-1c4c380d231b
+
+	column Parameter
+		dataType: string
+		lineageTag: 836b6a1f-b811-4be5-91f3-ded94c89223d
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value1]
+		sortByColumn: 'Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Fields'
+		dataType: string
+		isHidden
+		lineageTag: ffca6152-78af-4036-b409-9969924717e3
+		summarizeBy: none
+		isDataTypeInferred
+		sourceColumn: [Value2]
+		sortByColumn: 'Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parameter Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 47c6f2d8-883f-4a67-bad7-b8aa31279644
+		summarizeBy: sum
+		isDataTypeInferred
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Parameter = calculated
+		mode: import
+		source =
+				{
+				    ("# Garage Spaces", NAMEOF('house'[garageSpaces]), 0),
+				    ("# Accessibility Features", NAMEOF('house'[numOfAccessibilityFeatures]), 1),
+				    ("# Appliances", NAMEOF('house'[numOfAppliances]), 2),
+				    ("# Bathrooms", NAMEOF('house'[numOfBathrooms]), 3),
+				    ("# Bedrooms", NAMEOF('house'[numOfBedrooms]), 4),
+				    ("# Community Features", NAMEOF('house'[numOfCommunityFeatures]), 5),
+				    ("# Parking Features", NAMEOF('house'[numOfParkingFeatures]), 6),
+				    ("# Patio & Porch Features", NAMEOF('house'[numOfPatioAndPorchFeatures]), 7),
+				    ("# Security Features", NAMEOF('house'[numOfSecurityFeatures]), 8),
+				    ("# Stories / Levels", NAMEOF('house'[numOfStories]), 9),
+				    ("# Waterfront Features", NAMEOF('house'[numOfWaterfrontFeatures]), 10),
+				    ("# Window Features", NAMEOF('house'[numOfWindowFeatures]), 11),
+				    ("# Parking Spaces", NAMEOF('house'[parkingSpaces]), 12),
+				    ("Year Constructed", NAMEOF('housing_fact'[yearBuilt]), 13),
+				    ("Lot Size (Sq m)", NAMEOF('housing_fact'[lotSizeSqM]), 14),
+				    ("Living Area (Sq m)", NAMEOF('housing_fact'[livingAreaSqM]), 15)
+				}
+
+	annotation PBI_Id = f9baf99bd3ea48869e5afe78d2a9358b
+

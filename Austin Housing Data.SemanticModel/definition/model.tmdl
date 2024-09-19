@@ -1,0 +1,32 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBIDesktopVersion = 2.132.1053.0 (24.08)
+
+annotation PBI_QueryOrder = ["austinHousingData_Source","austinHousingData_clean","housing_fact","features","schools","house","location","description","_measures","features_pivot","Word Summary_pqe","z_word_rank","File Path"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table housing_fact
+ref table features
+ref table schools
+ref table house
+ref table location
+ref table description
+ref table _measures
+ref table features_pivot
+ref table 'Parameter (Range)'
+ref table 'Parameter (School Groups)'
+ref table 'Word Summary_pqe'
+ref table z_word_rank
+ref table Parameter
+
+ref cultureInfo en-GB
+

@@ -1,0 +1,49 @@
+expression austinHousingData_clean =
+		let
+		    Source = austinHousingData_Source,
+		    #"Added Lot Size Sq M" = Table.AddColumn(Source, "lotSizeSqM", each [lotSizeSqFt] * 0.092903),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Added Lot Size Sq M",{{"lotSizeSqM", type number}}),
+		    #"Added Living Area Sq M" = Table.AddColumn(#"Changed Type1", "livingAreaSqM", each [livingAreaSqFt] * 0.092903),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Added Living Area Sq M",{{"livingAreaSqM", type number}}),
+		    #"Capitalized Each Word" = Table.TransformColumns(#"Changed Type2",{{"city", Text.Proper, type text}}),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Capitalized Each Word",{{"hasAssociation", type text}, {"hasCooling", type text}, {"hasGarage", type text}, {"hasHeating", type text}, {"hasSpa", type text}, {"hasView", type text}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","true","Yes",Replacer.ReplaceText,{"hasAssociation", "hasCooling", "hasGarage", "hasHeating", "hasSpa", "hasView"}),
+		    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","false","No",Replacer.ReplaceText,{"hasAssociation", "hasCooling", "hasGarage", "hasHeating", "hasSpa", "hasView"}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Replaced Value1",{"lotSizeSqFt", "livingAreaSqFt"}),
+		    #"Added averageSchooldistance(km)" = Table.AddColumn(#"Removed Columns", "averageSchoolDistance(km)", each [avgSchoolDistance] * 1.609344),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added averageSchooldistance(km)",{"zpid", "city", "streetAddress", "zipcode", "description", "latitude", "longitude", "propertyTaxRate", "garageSpaces", "hasAssociation", "hasCooling", "hasGarage", "hasHeating", "hasSpa", "hasView", "parkingSpaces", "yearBuilt", "latestPrice", "numPriceChanges", "latest_saledate", "latest_salemonth", "latest_saleyear", "latestPriceSource", "numOfPhotos", "numOfAccessibilityFeatures", "numOfAppliances", "numOfParkingFeatures", "numOfPatioAndPorchFeatures", "numOfSecurityFeatures", "numOfWaterfrontFeatures", "numOfWindowFeatures", "numOfCommunityFeatures", "numOfPrimarySchools", "numOfElementarySchools", "numOfMiddleSchools", "numOfHighSchools", "avgSchoolDistance", "averageSchoolDistance(km)", "avgSchoolRating", "avgSchoolSize", "MedianStudentsPerTeacher", "numOfBathrooms", "numOfBedrooms", "numOfStories", "homeImage", "lotSizeSqM", "livingAreaSqM"}),
+		    #"Removed old averageSchoolDistance" = Table.RemoveColumns(#"Reordered Columns",{"avgSchoolDistance"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed old averageSchoolDistance",{{"averageSchoolDistance(km)", "averageSchoolDistance"}}),
+		    #"Rounded Off" = Table.TransformColumns(#"Renamed Columns",{{"averageSchoolDistance", each Number.Round(_, 1), type number}}),
+		    #"Rounded Off1" = Table.TransformColumns(#"Rounded Off",{{"avgSchoolRating", each Number.Round(_, 1), type number}}),
+		    #"Rounded Off2" = Table.TransformColumns(#"Rounded Off1",{{"avgSchoolSize", each Number.Round(_, -2), Int64.Type}}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Rounded Off2",{"zpid", "city", "streetAddress", "zipcode", "description", "latitude", "longitude", "propertyTaxRate", "garageSpaces", "hasAssociation", "hasCooling", "hasGarage", "hasHeating", "hasSpa", "hasView", "parkingSpaces", "yearBuilt", "latestPrice", "numPriceChanges", "latest_saledate", "latest_salemonth", "latest_saleyear", "latestPriceSource", "numOfPhotos", "numOfAccessibilityFeatures", "numOfAppliances", "numOfParkingFeatures", "numOfPatioAndPorchFeatures", "numOfSecurityFeatures", "numOfWaterfrontFeatures", "numOfWindowFeatures", "numOfCommunityFeatures", "lotSizeSqM", "livingAreaSqM", "numOfPrimarySchools", "numOfElementarySchools", "numOfMiddleSchools", "numOfHighSchools", "averageSchoolDistance", "avgSchoolRating", "avgSchoolSize", "MedianStudentsPerTeacher", "numOfBathrooms", "numOfBedrooms", "numOfStories", "homeImage"})
+		in
+		    #"Reordered Columns1"
+	lineageTag: aa1c44c1-f40f-433b-9cb9-65b32922bf64
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression austinHousingData_Source =
+		let
+		    Source = Excel.Workbook(File.Contents(#"File Path"), null, true),
+		    austinHousingData2_Sheet = Source{[Item="austinHousingData2",Kind="Sheet"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(austinHousingData2_Sheet, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"zpid", Int64.Type}, {"city", type text}, {"streetAddress", type text}, {"zipcode", Int64.Type}, {"description", type text}, {"latitude", type number}, {"longitude", type number}, {"propertyTaxRate", type number}, {"garageSpaces", Int64.Type}, {"hasAssociation", type logical}, {"hasCooling", type logical}, {"hasGarage", type logical}, {"hasHeating", type logical}, {"hasSpa", type logical}, {"hasView", type logical}, {"homeType", type text}, {"parkingSpaces", Int64.Type}, {"yearBuilt", Int64.Type}, {"latestPrice", Int64.Type}, {"numPriceChanges", Int64.Type}, {"latest_saledate", type date}, {"latest_salemonth", Int64.Type}, {"latest_saleyear", Int64.Type}, {"latestPriceSource", type text}, {"numOfPhotos", Int64.Type}, {"numOfAccessibilityFeatures", Int64.Type}, {"numOfAppliances", Int64.Type}, {"numOfParkingFeatures", Int64.Type}, {"numOfPatioAndPorchFeatures", Int64.Type}, {"numOfSecurityFeatures", Int64.Type}, {"numOfWaterfrontFeatures", Int64.Type}, {"numOfWindowFeatures", Int64.Type}, {"numOfCommunityFeatures", Int64.Type}, {"lotSizeSqFt", type number}, {"livingAreaSqFt", Int64.Type}, {"numOfPrimarySchools", Int64.Type}, {"numOfElementarySchools", Int64.Type}, {"numOfMiddleSchools", Int64.Type}, {"numOfHighSchools", Int64.Type}, {"avgSchoolDistance", type number}, {"avgSchoolRating", type number}, {"avgSchoolSize", Int64.Type}, {"MedianStudentsPerTeacher", Int64.Type}, {"numOfBathrooms", Int64.Type}, {"numOfBedrooms", Int64.Type}, {"numOfStories", Int64.Type}, {"homeImage", type text}})
+		in
+		    #"Changed Type"
+	lineageTag: 3b5ccb16-ef5b-45bf-8e5f-963fd8aea476
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'File Path' = "D:\OneDrive - DataVizExpert\Data\Austin Housing Data\austinHousingData.xlsx" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: e845d6e8-76b3-4199-812d-66091b574146
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
