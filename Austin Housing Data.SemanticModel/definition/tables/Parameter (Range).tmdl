@@ -18,11 +18,9 @@ table 'Parameter (Range)'
 		lineageTag: c0d4a15e-ad06-42d2-947e-928884a55e34
 
 	column Parameter
-		dataType: int64
 		formatString: #,0
 		lineageTag: a19a4b80-9f4f-41de-84e8-2cc6e5cd69e3
 		summarizeBy: none
-		isDataTypeInferred
 		sourceColumn: [Value]
 
 		extendedProperty ParameterMetadata =

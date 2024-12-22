@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBIDesktopVersion = 2.132.1053.0 (24.08)
+annotation PBIDesktopVersion = 2.138.1452.0 (24.11)
 
 annotation PBI_QueryOrder = ["austinHousingData_Source","austinHousingData_clean","housing_fact","features","schools","house","location","description","_measures","features_pivot","Word Summary_pqe","z_word_rank","File Path"]
 

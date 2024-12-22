@@ -2522,10 +2522,8 @@ table housing_fact
 				"$751K - $1M",
 				"Other"
 			)
-		dataType: string
 		lineageTag: 591725d6-eded-443c-9548-bb4c84e5a49c
 		summarizeBy: none
-		isDataTypeInferred
 		sortByColumn: 'Latest Price Group_Order'
 
 		extendedProperty GroupingMetadata =
@@ -4930,11 +4928,9 @@ table housing_fact
 				"7",
 				"Other"
 			)
-		dataType: string
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: a1c12f66-1d84-408d-bf7a-d730ace9c610
 		summarizeBy: none
-		isDataTypeInferred
 
 		extendedProperty GroupingMetadata =
 				{

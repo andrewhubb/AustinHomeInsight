@@ -2,10 +2,8 @@ table Parameter
 	lineageTag: ad771505-61c5-43b1-8c00-1c4c380d231b
 
 	column Parameter
-		dataType: string
 		lineageTag: 836b6a1f-b811-4be5-91f3-ded94c89223d
 		summarizeBy: none
-		isDataTypeInferred
 		sourceColumn: [Value1]
 		sortByColumn: 'Parameter Order'
 
@@ -15,11 +13,9 @@ table Parameter
 		annotation SummarizationSetBy = Automatic
 
 	column 'Parameter Fields'
-		dataType: string
 		isHidden
 		lineageTag: ffca6152-78af-4036-b409-9969924717e3
 		summarizeBy: none
-		isDataTypeInferred
 		sourceColumn: [Value2]
 		sortByColumn: 'Parameter Order'
 
@@ -32,12 +28,10 @@ table Parameter
 		annotation SummarizationSetBy = Automatic
 
 	column 'Parameter Order'
-		dataType: int64
 		isHidden
 		formatString: 0
 		lineageTag: 47c6f2d8-883f-4a67-bad7-b8aa31279644
 		summarizeBy: sum
-		isDataTypeInferred
 		sourceColumn: [Value3]
 
 		annotation SummarizationSetBy = Automatic

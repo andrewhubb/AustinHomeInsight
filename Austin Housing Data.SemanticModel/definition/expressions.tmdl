@@ -40,7 +40,7 @@ expression austinHousingData_Source =
 
 	annotation PBI_ResultType = Table
 
-expression 'File Path' = "D:\OneDrive - DataVizExpert\Data\Austin Housing Data\austinHousingData.xlsx" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+expression 'File Path' = "D:\OneDrive - Insightful Tech Consulting\Data\Austin Housing Data\austinHousingData.xlsx" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
 	lineageTag: e845d6e8-76b3-4199-812d-66091b574146
 
 	annotation PBI_NavigationStepName = Navigation
