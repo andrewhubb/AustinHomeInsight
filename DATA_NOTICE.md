@@ -15,6 +15,7 @@ The file `Data/austinHousingData.csv` in this repository is a copy of a third-pa
 
 - The dataset was supplied to me as a resource in the Udemy course *Microsoft Power BI Portfolio in a Day*.
 - The CSV in this repository is byte-for-byte identical (same MD5 hash) to the `austinHousingData.csv` published on Kaggle.
+- According to the Kaggle page, the data was scraped from Zillow in January 2021 by the author for a capstone project at Northwestern University.
 - According to the Kaggle page, the listing descriptions and images originate from Zillow listings. The `description` column contains that listing text. The listing images are **not** included in this repository (only image file names in the `homeImage` column).
 
 ## Licence text
